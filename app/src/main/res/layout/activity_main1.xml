@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Левый constraint view_1 привязан к левой стороне ConstraintLayout.
+                Верхний constraint view_1 — к верхней стороне ConstraintLayout.
+                Правый и нижний constraint не привязаны
+
+                first находится слева вверху относительно родителя-->
+    <TextView
+        android:id="@+id/first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="first"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Левый constraint у view_2 привязан к правой стороне view_1.
+              Constraint базовой линии view_2 — к базовой линии view_1.
+              Нижний и верхний constraint привязывать нельзя,
+              так как есть привязка по базовой линии.
+              Правый constraint не привязан.
+
+              second находится справа от first,
+              текст выровнен по second по линии first-->
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="second"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@id/first"
+        app:layout_constraintBaseline_toBaselineOf="@id/first"/>
+
+
+    <!-- Левый constraint view_3 привязан к правой стороне view_1.
+             Верхний constraint view_3 — к нижней стороне view_1.
+             Правый и нижний constraint не привязаны.
+
+              third справа внизу от first-->
+    <TextView
+        android:id="@+id/third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="third"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/first"
+        app:layout_constraintLeft_toRightOf="@id/first"/>
+
+    <!-- Левый constraint view_4 привязан к правой стороне view_2.
+           Нижний constraint view_4 — к нижней стороне view_2.
+           Правый и верхний constraint не привязаны.
+
+           fourth находится справа от second понижней линии first-->
+    <TextView
+        android:id="@+id/fourth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fourth"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/first"
+        app:layout_constraintLeft_toRightOf="@id/second"/>
+
+    <!-- Соотношение сторон 16:9
+             Все constraints у view привязаны к сторонам ConstraintLayout.
+             Ширина view будет равна ширине ConstraintLayout,
+              так как layout_width — match_constraint_spread.
+             Высота view будет рассчитана на основе соотношения,
+              так как layout_height — any_size. -->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/ic_launcher_background"/>
+
+
+    <!-- Горизонтальный bias выставлен в 0.3 (30% отступ слева/от начала).
+              Вертикальный bias — в 1 (снизу).
+              Constraints привязаны к сторонам контейнера.
+              Ширина — match_constraint_wrap, высота — match_constraint_wrap. -->
+
+    <!--app:layout_constraintVertical_bias="1"   привязка к низу-->
+    <!--app:layout_constraintVertical_bias="1" справа от fifth иудет 30% пространства-->
+    <TextView
+        android:id="@+id/fifth"
+        android:text="fifth"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- По умолчанию chainStyle — spread, так что значения атрибута можно не указывать -->
+        <TextView
+            android:id="@+id/view_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view_2"/>
+
+        <TextView
+            android:id="@+id/view_2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="view_2"
+            app:layout_constraintLeft_toRightOf="@id/view_1"
+            app:layout_constraintRight_toLeftOf="@+id/view_3"/>
+
+        <TextView
+            android:id="@+id/view_3"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="view_3"
+            app:layout_constraintLeft_toRightOf="@id/view_2"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- ChainStyle головного элемента — spread_inside -->
+        <TextView
+            android:id="@+id/view_11"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view_11"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view_22"/>
+
+        <TextView
+            android:id="@+id/view_22"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="view_22"
+            app:layout_constraintLeft_toRightOf="@id/view_11"
+            app:layout_constraintRight_toLeftOf="@+id/view_33"/>
+
+        <TextView
+            android:id="@+id/view_33"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="view_33"
+            app:layout_constraintLeft_toRightOf="@id/view_22"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- ChainStyle головного элемента — packed, bias — 0.3 (30% отступ слева/от начала) -->
+        <TextView
+            android:id="@+id/view_111"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_bias="0.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view_111"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view_222"/>
+
+        <TextView
+            android:id="@+id/view_222"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="view_222"
+            app:layout_constraintLeft_toRightOf="@id/view_111"
+            app:layout_constraintRight_toLeftOf="@+id/view_333"/>
+
+        <TextView
+            android:id="@+id/view_333"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="view_333"
+            app:layout_constraintLeft_toRightOf="@id/view_222"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Ширина  match_constraint_spread, weight=3,
+               по ширине займет 3/4 свободного пространства -->
+        <TextView
+            android:id="@+id/view_1111"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="3"
+            android:text="view_1111"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view_2222"/>
+
+        <!-- Ширина — match_constraint_spread, weight=1,
+               по ширине займет 1/4 свободного пространства -->
+        <TextView
+            android:id="@+id/view_2222"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="1"
+            android:text="view_2222"
+            app:layout_constraintLeft_toRightOf="@id/view_1111"
+            app:layout_constraintRight_toLeftOf="@+id/view_3333"/>
+
+        <!-- Ширина — any_size, займет столько пространства, сколько ей нужно для отрисовки -->
+        <TextView
+            android:id="@+id/view_3333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view_3333"
+            app:layout_constraintLeft_toRightOf="@id/view_2222"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/view_11111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="view_11111"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <!-- Левый constraint view_2 привязан к правой стороне view_1.
+               Так как view_1 скрыта (gone), то используется отступ goneMarginLeft (50dp). -->
+        <TextView
+            android:id="@+id/view_22222"
+            android:layout_marginLeft="10dp"
+            app:layout_goneMarginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="view_22222"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/view_11111"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

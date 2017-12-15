@@ -1,0 +1,87 @@
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.ad.firstkotlinapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+
+        //отправляется в Google Play Store.
+        finalProduction {
+            dimension "default"
+            applicationId "com.ad.firstkotlinapp"
+            resValue "string", "app_name", "First Kotlin App"
+        }
+
+        //версия с URL-адресом production сервера с новыми функциями,
+        // которые всё ещё не находятся в Google Play Store.
+        // Наши клиенты могут установить эту версию рядом с Google Play,
+        // чтобы они могли протестировать ее и дать нам обратную связь.
+        demoProduction {
+            dimension "default"
+            applicationId "com.ad.firstkotlinapp.demoproduction"
+            resValue "string", "app_name", "First Kotlin App Demo P"
+        }
+
+        //то же самое, что и demoProduction с dev URL-адресом сервера.
+        demoTesting {
+            dimension "default"
+            applicationId "com.ad.firstkotlinapp.demotesting"
+            resValue "string", "app_name", "First Kotlin App Demo T"
+        }
+
+        //полезен для разработчик.
+        // Иногда у нас есть готовый дизайн, и наш API ещё не готов.
+        // Ожидание API, чтобы быть начать разработку — не решение.
+        // Этот вариант сборки снабжён поддельными данными,
+        // поэтому команда дизайнеров может проверить его и дать нам обратную связь.
+        // Очень полезно это не откладывать.
+        // Когда API уже готов, мы перемещаем нашу разработку в окружение demoTesting.
+        mock {
+            dimension "default"
+            applicationId "com.ad.firstkotlinapp.mock"
+            resValue "string", "app_name", "First Kotlin App Mock"
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
+    implementation "com.android.support:support-v4:$rootProject.ext.supportLibVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    kapt 'com.android.databinding:compiler:3.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
